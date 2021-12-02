@@ -1,0 +1,89 @@
+<html>
+
+<head>
+
+</head>
+
+<body style="font:14px Calibri;">
+
+  <select id="division" onchange="populateDistrict(this)">
+    <option value="">-- Select --</option>
+  </select>
+  <select id="district" onchange="populateUpozilla(this)">
+    <option value="">-- Select --</option>
+  </select>
+  <select id="upozilla">
+    <option value="">-- Select --</option>
+  </select>
+  <button onclick="show()">Search</button>
+  <p id="msg"></p>
+</body>
+
+<script>
+  let places = null;
+  let division = document.getElementById('division');
+  let district = document.getElementById('district');
+  let set_div = null;
+  let upozilla = document.getElementById('upozilla');
+  let msg = document.getElementById('msg');
+  window.onload = populateDivision();
+
+  function populateDivision() {
+
+    let xhr = new XMLHttpRequest(),
+      method = 'GET',
+      overrideMimeType = 'application/json',
+      url = 'data.json';
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+        places = JSON.parse(xhr.responseText);
+        let names = Object.getOwnPropertyNames(places)
+        for (let i = 0; i < names.length; i++) {
+          division.innerHTML = division.innerHTML +
+            '<option value="' + names[i] + '">' + names[i] + '</option>';
+        }
+      }
+    };
+    xhr.open(method, url, true);
+    xhr.send();
+  }
+  function populateDistrict(name) {
+    let districts = places[name.options[name.selectedIndex].text];
+    set_div = districts;
+    console.log(districts);
+
+    district.innerHTML = "<option value=''>-- Select --</option>";
+    upozilla.innerHTML = "<option value=''>-- Select --</option>";
+    if (districts.length != 0) {
+      let dist_names = Object.getOwnPropertyNames(districts[0]);
+      //console.log(dist_names);
+      for (let i = 0; i < dist_names.length; i++) {
+        district.innerHTML += '<option value="' + dist_names[i] + '">' + dist_names[i] + '</option>';
+      }
+    }
+  }
+  function populateUpozilla(name) {
+    let disst = name.options[name.selectedIndex].text;
+    let upozillas = set_div[0][disst];
+
+    upozilla.innerHTML = "<option value=''>-- Select --</option>";
+    if (upozillas.length != 0) {
+      //console.log(dist_names);
+      for (let i = 0; i < upozillas.length; i++) {
+        upozilla.innerHTML += '<option value="' + upozillas[i] + '">' + upozillas[i] + '</option>';
+      }
+    }
+  }
+  function show() {
+    // // GET THE SELECTED VALUE FROM <select> ELEMENT AND SHOW IT.
+    // let msg = document.getElementById('msg');
+    // msg.innerHTML = 'Selected Bird: <b>' + ele.options[ele.selectedIndex].text + '</b> </br>' +
+    //     'ID: <b>' + ele.value + '</b>';
+
+    let p = "You are searching data on - <br> Division : " + division.options[division.selectedIndex].text + " <br>  District : " + district.options[district.selectedIndex].text + "<br> Upozilla : " + upozilla.options[upozilla.selectedIndex].text + "";
+    msg.innerHTML = p;
+  }
+</script>
+
+</html>

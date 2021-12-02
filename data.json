@@ -1,0 +1,44 @@
+{
+  "Sylhet": [
+    {
+      "Moulvibazar": [
+        "Sadar",
+        "kamalgonj",
+        "kulaura"
+      ],
+      "Sylhet Sadar": [
+        "Dakkhin surma",
+        "biyanibazar",
+        "Kajirbazar"
+      ]
+    }
+  ],
+  "Dhaka": [
+    {
+      "Gazipur": [
+        "abbc ab",
+        "gabbc 2",
+        "gabbcc 3"
+      ],
+      "Dhaka Sadar": [
+        "abcc c ",
+        "abcc d",
+        "bacc d"
+      ]
+    }
+  ],
+  "Chattagram": [
+    {
+      "abc": [
+        "abc abc",
+        "abc cd",
+        "abc cb"
+      ],
+      "def": [
+        "def ab ",
+        "def abc",
+        "def abd"
+      ]
+    }
+  ]
+}
